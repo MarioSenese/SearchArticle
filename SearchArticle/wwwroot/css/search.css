@@ -19,7 +19,6 @@ div.ricerca {position: relative; display: inline-block; width: 100%; margin: aut
 
     div.ricerca .box.RicercaBase fieldset legend, div.ricerca .box.RicercaDescr fieldset legend {
         font-size: 1.28em;
-        text-transform: uppercase;
         width: 100%;
         padding: 1em 0 15px;
         background-color: transparent;
@@ -28,11 +27,13 @@ div.ricerca {position: relative; display: inline-block; width: 100%; margin: aut
         font-weight: 700;
     }
 
-    div.ricerca .box.RicercaBase fieldset form, div.ricerca .box.RicercaDescr fieldset form {
+    div.ricerca .box.RicercaBase fieldset form, div.ricerca .box.RicercaDescr fieldset form,
+    div.ricerca .box.RicercaBase fieldset div, div.ricerca .box.RicercaDescr fieldset div {
         padding: 8px;
     }
 
-        div.ricerca .box.RicercaBase fieldset form input[type="text"], div.ricerca .box.RicercaDescr fieldset form input[type="text"] {
+        div.ricerca .box.RicercaBase fieldset form input[type="text"], div.ricerca .box.RicercaDescr fieldset form input[type="text"], 
+        div.ricerca .box.RicercaBase fieldset input[type="text"], div.ricerca .box.RicercaDescr fieldset input[type="text"] {
             border: 1px solid #b9b9b9;
             color: #414141;
             background: #fff;
@@ -45,12 +46,16 @@ div.ricerca {position: relative; display: inline-block; width: 100%; margin: aut
             margin: 0 5px 0 0;
         }
 
-        div.ricerca .box.RicercaBase fieldset form input[type="submit"], div.ricerca .box.RicercaDescr fieldset form input[type="submit"] {
+        /*div.ricerca .box.RicercaBase fieldset form input[type="submit"], div.ricerca .box.RicercaDescr fieldset form input[type="submit"],
+        div.ricerca .box.RicercaBase fieldset input[type="button"], div.ricerca .box.RicercaDescr fieldset input[type="button"]*/
+        div.ricerca .box .btn 
+        {
             background-color: #980000;
             color: #fff;
             padding: 5px 20px;
             border: 0;
             text-transform: uppercase;
+            cursor: pointer;
         }
 
 .ElencoProdotti {
