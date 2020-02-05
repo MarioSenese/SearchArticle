@@ -1,0 +1,58 @@
+﻿@model SearchArticle.Models.Prodotto
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index - Search Article</title>
+    <link href="~/css/search.css" rel="stylesheet" />
+    <script type="text/javascript" src="~/js/search.js"></script>
+</head>
+    <body>
+        
+        
+        <div class="ricerca">
+
+            <div class="box RicercaBase">
+                <fieldset class="fd RicercaBase">
+                    <legend><span>Ricerca per Codice</span></legend>
+                    <form id="formRicercaPerCodice" name="formRicercaPerCodice" method="post">
+                        <div>
+                            <input type="text" id="TextCodice" name="TextCodice" value="" placeholder="Codice" />
+                            @Html.ValidationMessage("messageTextCodice")
+                            <input type="submit" value="Cerca" class="submit" />
+                        </div>
+                    </form>
+                </fieldset>
+            </div>
+
+            <div class="box RicercaDescr">
+                <fieldset class="fd RicercaDescr">
+                    <legend><span>Ricerca per Descrizione</span></legend>
+                    <form id="formRicercaPerDescrizione" name="formRicercaPerDescrizione" method="post">
+                        <div>
+                            <input type="text" id="TextDescrizione" name="TextDescrizione" value="" placeholder="Descrizione" />
+                            @Html.ValidationMessage("messageTextDescrizione")
+                            <input type="submit" value="Cerca" class="submit" />
+                        </div>
+                    </form>
+                </fieldset>
+            </div>
+
+        </div>
+
+        <div id="progress" class="modal">
+            <div class="center">
+                <img src="~/images/loader.gif" />
+            </div>
+        </div>
+
+        <div class="ElencoProdotti"></div>
+
+    </body>
+</html>
