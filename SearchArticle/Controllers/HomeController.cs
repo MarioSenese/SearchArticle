@@ -46,20 +46,21 @@ namespace SearchArticle.Controllers
              ConnectionStringManager connectionStringManager = new ConnectionStringManager();
              var contrs = connectionStringManager.GetConnectionString();
 
+
              Debug.Write("_configuration: " + contrs);
 
              SqlConnection connection = new SqlConnection(contrs);
 
              try {
                  connection.Open();
-                 Console.WriteLine("ServerVersion: {0}", connection.ServerVersion);
-                 Console.WriteLine("State: {0}", connection.State);
+                 Debug.Write("Connessione al server e database avvenuta con successo");
+                 Debug.WriteLine("ServerVersion: {0}", connection.ServerVersion);
+                 Debug.WriteLine("State: {0}", connection.State);
              }
              catch (SqlException ex) {
                  Debug.Write("Nessuna connessione al server e al database\n" + ex.ToString());
              }
 
-            
         }
 
         [HttpPost]
