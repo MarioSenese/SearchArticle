@@ -13,7 +13,7 @@ namespace DAL
         {
 
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", true, reloadOnChange:true);
-            return builder.Build().GetSection("ConnectionString").GetSection("ConString2").Value;
+            return builder.Build().GetSection("ConnectionString").GetSection("Connection").Value;
     
         }
 
