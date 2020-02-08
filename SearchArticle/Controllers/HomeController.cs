@@ -32,6 +32,7 @@ namespace SearchArticle.Controllers
             */ 
             Database db = new Database();
             db.connectDB();
+
             
             return View();
 

@@ -12,15 +12,12 @@ namespace SearchArticle.Models
     public class Database
     {
 
-        
-
         public void connectDB()
         {
 
             //string config = configuration["ConString1"];
             ConnectionStringManager connectionStringManager = new ConnectionStringManager();
             var contrs = connectionStringManager.GetConnectionString();
-
 
             Debug.Write("_configuration: " + contrs);
 
@@ -35,7 +32,6 @@ namespace SearchArticle.Models
                 Debug.WriteLine("State: {0}", connection.State);
 
                 connection.Close();
-
 
             }
             catch (SqlException ex)
