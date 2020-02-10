@@ -31,6 +31,27 @@ namespace SearchArticle.Models
                 Debug.WriteLine("State: {0}", connection.ServerVersion);
                 Debug.WriteLine("State: {0}", connection.State);
 
+                string queryString = "SELECT TOP (10) * FROM eice.Accounts a;"; 
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+                using(SqlDataReader reader = command.ExecuteReader()) // recupero di dati in base alla query sql definita
+                {
+
+                    if(reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            Debug.Write(string.Format("{0}, {1}, {2}, {3}", reader[0], reader[2], reader[3], reader[13]) + "\n");
+                        }
+
+                    } else
+                    {
+                        Debug.Write("Non ci sono risultati");
+                    }
+
+                }
+
+
                 connection.Close();
 
             }
@@ -40,6 +61,9 @@ namespace SearchArticle.Models
             }
 
         }
+
+        
+
 
     }
 }

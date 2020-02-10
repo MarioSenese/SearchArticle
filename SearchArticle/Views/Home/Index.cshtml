@@ -1,9 +1,9 @@
 ﻿@model SearchArticle.Models.Prodotto
 
-
 @{
     Layout = null;
     ViewBag.Title = "Home Search Article";
+
 }
 
 <!DOCTYPE html>
@@ -27,7 +27,7 @@
 
                 @*@@using (Html.BeginForm("Search", "HomeController", FormMethod.Post, new { encType = "multipart/form-data", id = "FormRicercaCodice", name = "FormRicercaCodice" }))*@
                 @*@using (Html.BeginForm("HelloWorld", "Home", FormMethod.Get, new { encType = "multipart/form-data", id = "FormRicercaCodice", name = "FormRicercaCodice" }))
-                {*@
+                    {*@
                 <div>
                     @Html.EditorFor(prodotto => prodotto.codart, new { htmlAttributes = new { @class = "form-control", @name = "TextCodice", @id = "TextCodice", @placeholder = "Codice" } })
                     @Html.ValidationMessageFor(prodotto => prodotto.codart)
@@ -36,33 +36,33 @@
                 @*   } *@
 
             </fieldset>
-            </div>
-
-            <div class="box RicercaDescr">
-                <fieldset class="fd RicercaDescr">
-                    <legend><span>Ricerca per Descrizione</span></legend>
-
-                    @* @using (Html.BeginForm("Search", "Home", FormMethod.Post, new { encType = "multipart/form-data", id = "FormRicercaDescrizione", name = "FormRicercaDescrizione" }))
-                        { *@
-                        <div>
-                            @Html.EditorFor(prodotto => prodotto.descpro, new { htmlAttributes = new { @class = "form-control", @name = "TextDescrizione", @id = "TextDescrizione", @placeholder = "Descrizione" } })
-                            @Html.ValidationMessageFor(prodotto => prodotto.descpro)
-                            <input type="button" value="Cerca" class="btn searchDesc" />
-                        </div>
-                  @*  } *@
-
-                </fieldset>
-            </div>
-
         </div>
 
+        <div class="box RicercaDescr">
+            <fieldset class="fd RicercaDescr">
+                <legend><span>Ricerca per Descrizione</span></legend>
 
-        @* We want to show this while the server process is running: *@
-        <div id="progress">
-            <p>Processing, please wait . . .</p>
+                @* @using (Html.BeginForm("Search", "Home", FormMethod.Post, new { encType = "multipart/form-data", id = "FormRicercaDescrizione", name = "FormRicercaDescrizione" }))
+                    { *@
+                <div>
+                    @Html.EditorFor(prodotto => prodotto.descpro, new { htmlAttributes = new { @class = "form-control", @name = "TextDescrizione", @id = "TextDescrizione", @placeholder = "Descrizione" } })
+                    @Html.ValidationMessageFor(prodotto => prodotto.descpro)
+                    <input type="button" value="Cerca" class="btn searchDesc" />
+                </div>
+                @*  } *@
+
+            </fieldset>
         </div>
 
-        <div class="ElencoProdotti"></div>
+    </div>
+
+
+    @* We want to show this while the server process is running: *@
+    <div id="progress">
+        <p>Processing, please wait . . .</p>
+    </div>
+
+    <div class="ElencoProdotti"></div>
 
 
 </body>
