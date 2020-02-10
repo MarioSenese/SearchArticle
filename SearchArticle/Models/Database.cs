@@ -1,27 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 using System.Data.SqlClient;
 using DAL;
 using System.Diagnostics;
+
+using System.Web;
+using System.Data;
+
+using WebMatrix.Data;
 
 namespace SearchArticle.Models
 {
     public class Database
     {
 
-        public void connectDB()
+        SqlConnection connection;
+
+        public void Open()
         {
 
-            //string config = configuration["ConString1"];
             ConnectionStringManager connectionStringManager = new ConnectionStringManager();
             var contrs = connectionStringManager.GetConnectionString();
 
-            Debug.Write("_configuration: " + contrs);
-
-            SqlConnection connection = new SqlConnection(contrs);
+            connection = new SqlConnection(contrs);
 
             try
             {
@@ -31,38 +33,129 @@ namespace SearchArticle.Models
                 Debug.WriteLine("State: {0}", connection.ServerVersion);
                 Debug.WriteLine("State: {0}", connection.State);
 
-                string queryString = "SELECT TOP (10) * FROM eice.Accounts a;"; 
-                SqlCommand command = new SqlCommand(queryString, connection);
+            }
+            catch (SqlException ex)
+            {
 
-                using(SqlDataReader reader = command.ExecuteReader()) // recupero di dati in base alla query sql definita
+                Debug.Write("Nessuna connessione al server e al database\n" + ex.ToString());
+
+            }
+
+        }
+
+        //public Prodotto ExecuteQuerySQL() { }
+
+        /*public List<string> ExecuteQuerySQL(string query)
+        //public ViewModel ExecuteQuerySQL(string query)
+        {
+
+            var results = new List<string>();
+            string result = "";
+
+            using (SqlCommand command = new SqlCommand("", connection))
+            {
+
+                command.CommandText = query;
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        
+                        int totColumn = reader.FieldCount; // Numero totale di colonne
+                        string columnName = "";
+                        for (int i = 0; i < totColumn; i++)
+                        {
+                            columnName = reader.GetName(i);
+                            //reader.Get
+
+                            while (reader.Read())
+                            {
+
+                            
+
+                            }
+
+                        }
+
+                    }
+                    else
+                    {
+                        //Debug.Write("Non ci sono risultati");
+                        results = null;
+                    }
+
+                }
+
+                command.ExecuteNonQuery();
+
+
+                //command.Parameters.AddWithValue();
+
+
+
+            }
+
+            return results;
+
+        } */
+
+        public void Close()
+        {
+
+            try
+            {
+                connection.Close();
+                Debug.Write("\n Chiusura del database riuscita \n");
+            } catch (SqlException ex) {
+                Debug.Write("\n Chiusura del Database non riuscita \n" + ex.ToString());
+            }
+
+        }
+
+        public Object Query(string querySQL)
+        {
+
+            Object results = null;
+            using (SqlCommand command = new SqlCommand("", connection))
+            {
+                command.CommandText = querySQL;
+
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
 
                     if(reader.HasRows)
                     {
-                        while (reader.Read())
+
+                        int column = reader.FieldCount;
+
+                        for(int i = 0; i < column; i++)
                         {
-                            Debug.Write(string.Format("{0}, {1}, {2}, {3}", reader[0], reader[2], reader[3], reader[13]) + "\n");
+
+                            var count = 1;
+                            while(reader.Read())
+                            {
+
+                                count++;
+                            }
+
                         }
+
 
                     } else
                     {
-                        Debug.Write("Non ci sono risultati");
+                        Debug.Write("Non ci sono i risultati");
                     }
 
                 }
 
 
-                connection.Close();
+            }
 
-            }
-            catch (SqlException ex)
-            {
-                Debug.Write("Nessuna connessione al server e al database\n" + ex.ToString());
-            }
+            return results;
+
 
         }
-
-        
 
 
     }
