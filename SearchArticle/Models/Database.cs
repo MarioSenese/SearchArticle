@@ -113,7 +113,7 @@ namespace SearchArticle.Models
 
         }
 
-        public Object Query(string querySQL)
+        /*public Object Query(string querySQL)
         {
 
             Object results = null;
@@ -155,7 +155,7 @@ namespace SearchArticle.Models
             return results;
 
 
-        }
+        }*/
 
 
     }

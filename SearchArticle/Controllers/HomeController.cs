@@ -141,11 +141,11 @@ namespace SearchArticle.Controllers
         {
 
 
-            Database db = new Database();
+            /*Database db = new Database();
             db.Open();
             // istruzioni esegui query
             db.Query(selezionaProdottoDaListiniNETPiB2PNiB2CPi);
-            db.Close();
+            db.Close();*/
 
 
         }
