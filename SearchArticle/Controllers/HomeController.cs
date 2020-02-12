@@ -140,7 +140,6 @@ namespace SearchArticle.Controllers
         private void EseguiQuery(string keyword)
         {
 
-            Hashtabke 
 
             Database db = new Database();
             db.Open();
