@@ -39,6 +39,7 @@ namespace SearchArticle.Models
 
         }
 
+
         public static string HttpJsonRequest(string serviceUrl, string jsonParam)
         {
             // Create a new HttpWebRequest to call the given serviceUrl

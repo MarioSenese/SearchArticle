@@ -9,8 +9,7 @@ using System.Web;
 
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-
-
+using System.Collections;
 
 namespace SearchArticle.Controllers
 {
@@ -19,6 +18,17 @@ namespace SearchArticle.Controllers
         private string keyword;
         
         private readonly IConfiguration configuration;
+
+        /*
+        *   Riferimento nostro database
+        */
+        Database db = new Database();
+
+        /*
+        *   Riferimento oggetto TecDoc
+        */
+        TecDoc tecDoc = new TecDoc();
+
 
         public HomeController(IConfiguration conf)
         {
@@ -30,16 +40,9 @@ namespace SearchArticle.Controllers
           public IActionResult Index()
            {
 
-                TecDoc tecDoc = new TecDoc();
                 tecDoc.Detail();
                 Debug.Write("\n PROVIDER ID: " + tecDoc.JsonServiceUrl + " \n");
 
-
-                /*
-                *   Collegamento al database
-                */ 
-                Database db = new Database();
-           
                 db.Open();
            
                 /*
@@ -137,11 +140,8 @@ namespace SearchArticle.Controllers
             Debug.Write(keyword);
             Debug.Write("\n\n");
 
-            /*Database db = new Database();
-            db.Open();
-            // istruzioni esegui query
-            db.Query(selezionaProdottoDaListiniNETPiB2PNiB2CPi);
-            db.Close();*/
+            Hashtable getArticleDirectSearch = new Hashtable();
+
 
 
         }
