@@ -15,13 +15,13 @@ namespace SearchArticle.Models
     public class TecDoc
     {
 
-        public string apiKey { get; set; }
-        public string jsonService { get; set; }
-        public string pictures { get; set; }
-        public int providerId { get; set; }
-        public string largePictures { get; set; }
-        public string thumbnail { get; set; }
-        public string jsonServiceUrl { get; set; }
+        public string ApiKey { get; set; }
+        public string JsonService { get; set; }
+        public string Pictures { get; set; }
+        public int ProviderId { get; set; }
+        public string LargePictures { get; set; }
+        public string Thumbnail { get; set; }
+        public string JsonServiceUrl { get; set; }
 
         public void Detail()
         {
@@ -29,13 +29,13 @@ namespace SearchArticle.Models
             ConnectionTecdocManager connectionTecdocManager = new ConnectionTecdocManager();
             IDictionary details = connectionTecdocManager.GetConnectionTecdocManager();
 
-            apiKey = details["api_key"].ToString();
-            jsonService = details["json_service"].ToString();
-            jsonServiceUrl = jsonService + "?api_key=" + apiKey;
-            providerId = Convert.ToInt32(details["provider_id"]);
-            pictures = details["pictures"].ToString();
-            thumbnail = details["thumbnail"].ToString();
-            largePictures = details["large_pictures"].ToString();
+            ApiKey = details["api_key"].ToString();
+            JsonService = details["json_service"].ToString();
+            JsonServiceUrl = JsonService + "?api_key=" + ApiKey;
+            ProviderId = Convert.ToInt32(details["provider_id"]);
+            Pictures = details["pictures"].ToString();
+            Thumbnail = details["thumbnail"].ToString();
+            LargePictures = details["large_pictures"].ToString();
 
         }
 

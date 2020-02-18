@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 using DAL;
 using System.Diagnostics;
-
-using System.Web;
-using System.Data;
-
-using WebMatrix.Data;
+using System.Collections.Generic;
 
 namespace SearchArticle.Models
 {
@@ -43,13 +36,59 @@ namespace SearchArticle.Models
 
         }
 
-        //public Prodotto ExecuteQuerySQL() { }
 
-        /*public List<string> ExecuteQuerySQL(string query)
+
+        public List<string> ExecuteQuerySQL(string query, string paramValue)
         //public ViewModel ExecuteQuerySQL(string query)
         {
 
-            var results = new List<string>();
+            List<string> res = new List<string>();
+
+            SqlCommand command = new SqlCommand(query, connection);
+            if (paramValue != null)
+            {
+                command.Parameters.AddWithValue("@paramValue", paramValue);
+            }
+
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+
+                if (reader.HasRows)
+                {
+                    int i = 0;
+                    while (reader.Read())
+                    {
+
+                        try
+                        {
+
+                            //res.Add((System.String)reader[i]);
+                            int numCol = reader.FieldCount;
+                            for (int j = 0; j < numCol; j++) {
+
+                                res.Add(reader[j].ToString());
+
+
+                            }
+
+                        }
+                        catch (System.InvalidCastException ex) { }
+
+                        i++;
+
+                    }
+                }
+                else
+                {
+                    res = null;
+                }
+
+            }
+
+            return res;
+
+        }
+        /* var results = new List<string>();
             string result = "";
 
             using (SqlCommand command = new SqlCommand("", connection))
@@ -59,46 +98,42 @@ namespace SearchArticle.Models
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    if (reader.HasRows)
-                    {
-                        
-                        int totColumn = reader.FieldCount; // Numero totale di colonne
-                        string columnName = "";
-                        for (int i = 0; i < totColumn; i++)
-                        {
-                            columnName = reader.GetName(i);
-                            //reader.Get
 
-                            while (reader.Read())
-                            {
+                    int totColumns = reader.FieldCount; // Numero totale di colonne
+                    Debug.Write("totColumns: " + totColumns);
+                    string columnName = "";
 
-                            
+                    if (reader.HasRows) {
+
+                        int row = 0;
+                        while (reader.Read()) {
+
+                            for (int c = 0; c < totColumns; c++) {
+
+
 
                             }
 
+                            row++;
                         }
 
+                        Debug.Write("\ntotRows: " + row + "\n");
+
                     }
-                    else
-                    {
-                        //Debug.Write("Non ci sono risultati");
-                        results = null;
-                    }
+
 
                 }
 
                 command.ExecuteNonQuery();
 
 
-                //command.Parameters.AddWithValue();
+                //command.Parameters.AddWithValue();*/
 
 
 
-            }
+        //}
 
-            return results;
-
-        } */
+    //} 
 
         public void Close()
         {
@@ -113,50 +148,6 @@ namespace SearchArticle.Models
 
         }
 
-        /*public Object Query(string querySQL)
-        {
-
-            Object results = null;
-            using (SqlCommand command = new SqlCommand("", connection))
-            {
-                command.CommandText = querySQL;
-
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-
-                    if(reader.HasRows)
-                    {
-
-                        int column = reader.FieldCount;
-
-                        for(int i = 0; i < column; i++)
-                        {
-
-                            var count = 1;
-                            while(reader.Read())
-                            {
-
-                                count++;
-                            }
-
-                        }
-
-
-                    } else
-                    {
-                        Debug.Write("Non ci sono i risultati");
-                    }
-
-                }
-
-
-            }
-
-            return results;
-
-
-        }*/
-
-
+        
     }
 }

@@ -8,6 +8,8 @@ using SearchArticle.Models;
 using System.Web;
 
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+
 
 
 namespace SearchArticle.Controllers
@@ -15,26 +17,7 @@ namespace SearchArticle.Controllers
     public class HomeController : Controller
     {
         private string keyword;
-
-        string selezionaProdottoDaListiniNETPiB2PNiB2CPi = "SELECT TOP 1 pe.CODART, ISNULL(pcl.Description, pc.DESCPRO) AS descrizione, sp.ProductDestination, sp.[Image], ma.DESMAR, lis.LIS_CODLIS, lis.LIS_PREZZO, pcl.url, pe.IDProdotto, ep.prezzo, ed.dispo, pc.CODPRO, pc.atrclpr0, ep.prezzoO, pc.ATRCLPR8, pc.ATRCLPR2  " +
-                                                            "FROM eice.ProdottiCodificati pc " +
-                                                            "INNER JOIN eice.ProdottiEsterni pe on pe.IDProdotto = pc.IDProdotto " +
-                                                            "INNER JOIN eice.SintesiProdotti sp on pc.IDProdotto = sp.IDProdotto " +
-                                                            "INNER JOIN eice.Marche ma on ma.CODMAR = sp.MARCA " +
-                                                            "INNER JOIN eice.Listini lis on lis.CODPRO = pc.CODPRO " +
-                                                            "INNER JOIN eice.Tlisti tl on lis.LIS_CODLIS = tl.CODTLIST " +
-                                                            "INNER JOIN eice.ProdottiCodificatiLoc pcl on pc.IDProdotto = pcl.IDProdotto " +
-                                                            "INNER JOIN eice.ExpProd ep ON pc.CODPRO = ep.codpro " +
-                                                            "INNER JOIN eice.ExpDispo ed ON pc.CODPRO = ed.codpro " +
-                                                            "INNER JOIN eice.marcat catm on ma.CODMAR = catm.CODMAR " +
-                                                            "WHERE ma.DESMAR = @0 " +
-                                                            "AND pe.CODART = @1 " +
-                                                            "AND lis.LIS_SCAD = '9999-12-31 00:00:00' " +
-                                                            "AND lis.LIS_CODLIS IN ('NETPi','B2PNi','B2CPi') " +
-                                                            "AND pe.CODCAT = catm.CODCAT " +
-                                                            "AND sp.ProductDestination IS NOT NULL " +
-                                                            "ORDER BY tl.ID";
-
+        
         private readonly IConfiguration configuration;
 
         public HomeController(IConfiguration conf)
@@ -45,50 +28,56 @@ namespace SearchArticle.Controllers
         // GET: Home
         //public ActionResult Index() {
           public IActionResult Index()
-        {
+           {
 
-            TecDoc tecDoc = new TecDoc();
-            tecDoc.Detail();
-            Debug.Write("\n PROVIDER ID: " + tecDoc.jsonServiceUrl + " \n");
+                TecDoc tecDoc = new TecDoc();
+                tecDoc.Detail();
+                Debug.Write("\n PROVIDER ID: " + tecDoc.JsonServiceUrl + " \n");
 
 
-            /*
-                Collegamento al database
-            */ 
-            //Database db = new Database();
-            //db.Open();
-            //string res = db.ExecuteQuerySQL("SELECT TOP (10) * FROM eice.Accounts a;");
-           // List<string> res = db.ExecuteQuerySQL("SELECT TOP (10) * FROM eice.Accounts a;");
-            //Debug.Write("numero di risultati: " + res.Count());
+                /*
+                *   Collegamento al database
+                */ 
+                Database db = new Database();
+           
+                db.Open();
+           
+                /*
+                * Esecuzione QUERY SQL
+                */
+                List<string> res = db.ExecuteQuerySQL("SELECT * FROM eice.Accounts a WHERE a.Email=@paramValue;", "senese.mario90@gmail.com");
+                Debug.Write("\n");
+                Debug.Write("num res: "  + res.Count);
+                Debug.Write("\n");
+                if (res != null || res.Count > 0) {
+                    string jsonParam = JsonConvert.SerializeObject(res);
 
-            /*for(int i = 0; i < res.Count(); i++)
-            {
-                Debug.Write(i + "): " + res[i].ToString() + "\n");
-            }*/
+                    Debug.Write("\n");
+                    Debug.Write(jsonParam);
+                    Debug.Write("\n");
 
-            //db.Close();
-            
-            return View();
+                }
+                db.Close();
 
-        }
+                return View();
+
+            }
 
         [HttpPost]
         public JsonResult Search(Prodotto prodotto) => Json(prodotto);
 
         [HttpPost]
         public JsonResult SearchArticleCode(Prodotto p) {
-            string codice = "";
             if (p.codart != null) {
-                codice = p.codart;
+                _ = p.codart;
             }
             return Json(p);
         }
 
         [HttpPost]
         public JsonResult SearchArticleDescription(Prodotto p) {
-            string descrizione = "";
             if (p.descpro != null) {
-                descrizione = p.descpro;
+                _ = p.descpro;
             }
             return Json(p);
         }
@@ -139,7 +128,14 @@ namespace SearchArticle.Controllers
 
         private void EseguiQuery(string keyword)
         {
+            if (keyword is null)
+            {
+                throw new ArgumentNullException(nameof(keyword));
+            }
 
+            Debug.Write("\n\n");
+            Debug.Write(keyword);
+            Debug.Write("\n\n");
 
             /*Database db = new Database();
             db.Open();
