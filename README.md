@@ -1,9 +1,12 @@
 # SearchArticle
 
-Ricerca Prodotto per Codice/Descrizione, con collegamento TecDoc. 
-Visual Studio
-ASP.NET
-Razor MVC
+Search Product article with TecDoc catalog. It's a test...
+
+IDE: Microsoft Visual Studio
+Framework: ASP.NET
+Syntax: Razor MVC
+Language: 
+C#
 HTML
 JS
 CSS
