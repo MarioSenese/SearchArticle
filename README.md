@@ -1,6 +1,6 @@
 # SearchArticle
 
-Search Product article with TecDoc catalog. It's a test...
+Search Product article with TecDoc catalog...
 
 IDE: Microsoft Visual Studio\
 Framework: ASP.NET\
